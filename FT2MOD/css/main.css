@@ -186,8 +186,9 @@ a:not([class]):hover {
 
 textarea {
   font-size:0.25em;
-  width: calc(100% - 1em);
+  width:100%;
   min-height:200px;
+  max-width: 100%;
 }
 
 label, select {
