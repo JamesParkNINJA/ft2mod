@@ -1,3 +1,7 @@
+/* -------- FT2MOD -------- */
+/*  ft2mod.jamespark.ninja  */
+/* --- James Park: 2020 --- */
+
 jQuery(document).ready( function($) {
   
   // Default settings 
