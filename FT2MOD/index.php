@@ -56,12 +56,12 @@
             </div>
           </div>
         </div>
-        <div class="ang le-full lg-half">
+        <div class="ang le-full lg-half" style="padding:.5em;">
           <strong class="title">FamiTracker Export</strong>
           <br>
           <textarea name="FT_2" placeholder="PASTE FAMITRACKER TEXT HERE"></textarea>
         </div>
-        <div class="ang le-full lg-half">
+        <div class="ang le-full lg-half" style="padding:.5em;">
           <strong>MOD Output</strong>
           <br>
           <textarea name="MOD_2" disabled placeholder="MOD COMPATIBLE TEXT WILL APPEAR HERE"></textarea>
