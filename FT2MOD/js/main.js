@@ -1,3 +1,7 @@
+/* -------- FT2MOD -------- */
+/*  ft2mod.jamespark.ninja  */
+/* --- James Park: 2020 --- */
+
 jQuery(document).ready( function($) {
   
   // Default settings 
@@ -10,6 +14,8 @@ jQuery(document).ready( function($) {
   function checkEffect(effect) {
     var check = false,
         mod   = effect[0];
+    
+    console.log(mod+' '+tracker);
     
     switch (mod) {
       case '0': check = effect; break;
@@ -39,6 +45,8 @@ jQuery(document).ready( function($) {
       case 'Z': check = false; break;
       default: check = false;
     }
+    
+    console.log(check);
     
     return check;
   }
@@ -148,19 +156,31 @@ jQuery(document).ready( function($) {
               cells[2] = '...';
             }
             
-            // If a FamiTracker effect exists
-            if (cells[3] != '...' ) {
-              // Check if the effect is not acceptable or effects aren't prioritised
-              // and apply the updated volume to the 3rd "cell"
-              // else apply the effect to the 3rd "cell"
-              if ((checkEffect(cells[3]) && prioritiseEffects) || (checkEffect(cells[3]) && cells[2] !== '...')) {
-                cells[3] = checkEffect(cells[3]);
-              } 
+            // If a effects are a priority
+            if (!prioritiseEffects) {
+              // If not, check for a volume and apply it
+              // If no volume, then check for effect and convert it
+              if (cells[2] != '...') {
+                cells[3] = cells[2];
+              } else {
+                cells[3] = (checkEffect(cells[3]) ? checkEffect(cells[3]) : '...');
+              }
+            } else {
+              // If effects ARE a priority, check for effects and apply them 
+              // (or wipe them if not compatible)
+              if (cells[3] != '...') {
+                if (checkEffect(cells[3]) != false) {
+                  cells[3] = checkEffect(cells[3]);
+                } else {
+                  cells[3] = '...';
+                }
+              } else {
+                // Otherwise apply the volume instead
+                if (cells[2] != '...') {
+                  cells[3] = cells[2];
+                }
+              }
             }
-            
-            if (cells[2] != '...' && !prioritiseEffects) {
-              cells[3] = cells[2];
-            }            
             
             // sets the 2nd "cell" as blank default for OpenMTP and GBTPlayer
             cells[2] = '...';            
