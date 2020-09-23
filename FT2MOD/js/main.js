@@ -1,7 +1,3 @@
-/* -------- FT2MOD -------- */
-/*  ft2mod.jamespark.ninja  */
-/* --- James Park: 2020 --- */
-
 jQuery(document).ready( function($) {
   
   // Default settings 
@@ -157,12 +153,14 @@ jQuery(document).ready( function($) {
               // Check if the effect is not acceptable or effects aren't prioritised
               // and apply the updated volume to the 3rd "cell"
               // else apply the effect to the 3rd "cell"
-              if (!checkEffect(cells[3]) || !prioritiseEffects) {
-                cells[3] = cells[2];
-              } else {
+              if ((checkEffect(cells[3]) && prioritiseEffects) || (checkEffect(cells[3]) && cells[2] !== '...')) {
                 cells[3] = checkEffect(cells[3]);
-              }
+              } 
             }
+            
+            if (cells[2] != '...' && !prioritiseEffects) {
+              cells[3] = cells[2];
+            }            
             
             // sets the 2nd "cell" as blank default for OpenMTP and GBTPlayer
             cells[2] = '...';            
