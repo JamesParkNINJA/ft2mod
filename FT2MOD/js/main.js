@@ -9,6 +9,42 @@ jQuery(document).ready( function($) {
   var prioritiseEffects = false,
       tracker = 'GBTPlayer';
   
+  // Function to check if the instrument matches the channel, and default otherwise
+  function instrumentMatch(channel, instrument) {
+    
+    var ins1 = Array('01', '02', '03', '04'),
+        ins2 = Array('08', '09', '0A', '0B', '0C', '0D', '0E', '0F'),
+        ins3 = Array('10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '1A', '1B', '1C', '1D', '1E', '1F'),
+        output = '';
+    
+    if (channel == 0 || channel == 1) {
+      if (ins1.includes(instrument)) {
+        output = instrument;
+      } else {
+        output = '01';
+      }
+    }
+    
+    if (channel == 2) {
+      if (ins2.includes(instrument)) {
+        output = instrument;
+      } else {
+        output = '08';
+      }
+    }
+    
+    if (channel == 3) {
+      if (ins3.includes(instrument)) {
+        output = instrument;
+      } else {
+        output = '10';
+      }
+    }
+    
+    return output;
+    
+  }
+  
   // Function check a string and loop through which compatible effect it is
   // If the first character of the effect matches an incompatible effect, it returns false
   function checkEffect(effect) {
@@ -145,7 +181,11 @@ jQuery(document).ready( function($) {
           if (tabs[0] != '' && x < 4) {
             
             // Splits the channels into note data ("cells")
-            var cells = tabs[x].split(' ');
+            var cells = tabs[x].split(' '),
+                instr = cells[1];
+            
+            // Checks the instrument with the channel, replaces if not viable
+            cells[1] = instrumentMatch(x, instr);
             
             // If a FamiTracker volume exists
             // convert it to .mod volume
